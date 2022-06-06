@@ -1,3 +1,4 @@
+using Domain.Agilis.Interfaces.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Repository.Agilis.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +28,19 @@ namespace API.Agilis
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API.Agilis", Version = "v1" });
             });
+
+            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+
+            //services.AddScoped(typeof(IExampleRepository), typeof(ExampleRepository));
+
+            //services.AddTransient(typeof(IExampleService), typeof(ExampleService));
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +58,12 @@ namespace API.Agilis
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
+
+            app.UseCors(x => x
+                              .AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {
