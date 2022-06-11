@@ -8,6 +8,9 @@ namespace Domain.Agilis.Enums
         Standart = 1,
 
         [Display(Name = "Manager")]
-        Manager = 2
+        Manager = 2,
+
+        [Display(Name = "Owner")]
+        Owner = 3
     }
 }
