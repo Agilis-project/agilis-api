@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Agilis.Entities;
+using Microsoft.EntityFrameworkCore;
+using Repository.Agilis.Mapping;
 
 namespace Repository.Agilis
 {
@@ -8,6 +10,12 @@ namespace Repository.Agilis
 
         public AgilisDbContext(DbContextOptions<AgilisDbContext> options) : base(options) { }
 
+        public DbSet<ProjectEntity> Project { get; set; }
+        public DbSet<MemberEntity> Member { get; set; }
+        public DbSet<SprintEntity> Sprint { get; set; }
+        public DbSet<TaskEntity> Task { get; set; }
+        public DbSet<ProjectMemberEntity> ProjectMember { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=Fabiano;Database=agilis;Trusted_Connection=True;");
@@ -15,6 +23,12 @@ namespace Repository.Agilis
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ProjectEntity>(new ProjectMap().Configure);
+            modelBuilder.Entity<MemberEntity>(new MemberMap().Configure);
+            modelBuilder.Entity<SprintEntity>(new SprintMap().Configure);
+            modelBuilder.Entity<TaskEntity>(new TaskMap().Configure);
+            modelBuilder.Entity<ProjectMemberEntity>(new ProjectMemberMap().Configure);
+
             base.OnModelCreating(modelBuilder);
         }
     }

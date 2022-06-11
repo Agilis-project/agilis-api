@@ -50,9 +50,9 @@ namespace Repository.Agilis.Repositories
         {
             var entity = ObterPorId(id);
 
-            if (entity != null && entity.Ativado)
+            if (entity != null && entity.Active)
             {
-                entity.Ativado = false;
+                entity.Active = false;
                 _dbSet.Update(entity);
                 _context.SaveChanges();
 

@@ -11,6 +11,16 @@
 
         public int Id { get; set; }
 
-        public bool Ativado { get; set; }
+        public bool Active { get; set; }
+
+        public void Activate()
+        { 
+            this.Active = true; 
+        }
+
+        public void Deactivate()
+        {
+            this.Active = false;
+        }
     }
 }
