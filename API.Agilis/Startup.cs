@@ -29,7 +29,12 @@ namespace API.Agilis
 
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 
-            //services.AddScoped(typeof(IExampleRepository), typeof(ExampleRepository));
+            services.AddScoped(typeof(IMemberRepository), typeof(MemberRepository));
+            services.AddScoped(typeof(IProjectRepository), typeof(ProjectRepository));
+            services.AddScoped(typeof(IProjectMemberRepository), typeof(ProjectMemberRepository));
+            services.AddScoped(typeof(ISprintRepository), typeof(SprintRepository));
+            services.AddScoped(typeof(ITaskRepository), typeof(TaskRepository));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
 
             //services.AddTransient(typeof(IExampleService), typeof(ExampleService));
 
