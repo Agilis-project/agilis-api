@@ -1,10 +1,12 @@
 ﻿using Domain.Agilis.Enums;
 using System;
 
-namespace Domain.Agilis.Entities
+namespace Domain.Agilis.DTOs.Task
 {
-    public class TaskEntity : EntityBase
+    public class TaskOutputDTO
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -23,11 +25,6 @@ namespace Domain.Agilis.Entities
 
         public int IdSprint { get; set; }
 
-
-        #region Config EntityFramework
-        public virtual MemberEntity Member { get; set; }
-
-        public virtual SprintEntity Sprint { get; set; }
-        #endregion
+        public bool Active { get; set; }
     }
 }

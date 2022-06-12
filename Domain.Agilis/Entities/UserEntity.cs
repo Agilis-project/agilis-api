@@ -9,7 +9,7 @@ namespace Domain.Agilis.Entities
 
         public string Password { get; set; }
 
-        public ERole Role { get; set; }
+        public ERoleUser Role { get; set; }
 
         #region Config EntityFramework
         public virtual ICollection<MemberEntity> Members { get; set; }

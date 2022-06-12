@@ -2,7 +2,7 @@
 
 namespace Domain.Agilis.Enums
 {
-    public enum ERole
+    public enum ERoleUser
     {
         [Display(Name = "Standart")]
         Standart = 1,
