@@ -1,4 +1,5 @@
 using Domain.Agilis.Interfaces.Repositories;
+using Domain.Agilis.Interfaces.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Repository.Agilis.Repositories;
+using Service.Agilis.Services;
 
 namespace API.Agilis
 {
@@ -36,7 +38,12 @@ namespace API.Agilis
             services.AddScoped(typeof(ITaskRepository), typeof(TaskRepository));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
 
-            //services.AddTransient(typeof(IExampleService), typeof(ExampleService));
+            services.AddTransient(typeof(IMemberService), typeof(MemberService));
+            services.AddTransient(typeof(IProjectService), typeof(ProjectService));
+            services.AddTransient(typeof(IProjectMemberService), typeof(ProjectMemberService));
+            services.AddTransient(typeof(ISprintService), typeof(SprintService));
+            services.AddTransient(typeof(ITaskService), typeof(TaskService));
+            services.AddTransient(typeof(IUserService), typeof(UserService));
 
             services.AddCors();
         }

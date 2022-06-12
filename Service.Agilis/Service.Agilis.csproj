@@ -8,8 +8,4 @@
     <ProjectReference Include="..\Domain.Agilis\Domain.Agilis.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
