@@ -29,25 +29,16 @@ namespace Repository.Agilis.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("Member");
                 });
@@ -173,6 +164,46 @@ namespace Repository.Agilis.Migrations
                     b.ToTable("Task");
                 });
 
+            modelBuilder.Entity("Domain.Agilis.Entities.UserEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Domain.Agilis.Entities.MemberEntity", b =>
+                {
+                    b.HasOne("Domain.Agilis.Entities.UserEntity", "User")
+                        .WithMany("Members")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Agilis.Entities.ProjectMemberEntity", b =>
                 {
                     b.HasOne("Domain.Agilis.Entities.MemberEntity", "Member")
@@ -239,6 +270,11 @@ namespace Repository.Agilis.Migrations
             modelBuilder.Entity("Domain.Agilis.Entities.SprintEntity", b =>
                 {
                     b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("Domain.Agilis.Entities.UserEntity", b =>
+                {
+                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }

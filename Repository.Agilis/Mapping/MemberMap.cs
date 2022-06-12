@@ -11,10 +11,8 @@ namespace Repository.Agilis.Mapping
             builder.ToTable("Member");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired();
-            builder.Property(x => x.Role).IsRequired();
-            builder.HasIndex(x => x.Email).IsUnique();
-            builder.Property(x => x.Password).IsRequired();
             builder.Property(x => x.Active).IsRequired();
+            builder.HasOne(x => x.User).WithMany(x => x.Members).HasForeignKey(x => x.IdUser);
         }
     }
 }

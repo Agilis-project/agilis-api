@@ -14,6 +14,7 @@ namespace Repository.Agilis
         public DbSet<MemberEntity> Member { get; set; }
         public DbSet<SprintEntity> Sprint { get; set; }
         public DbSet<TaskEntity> Task { get; set; }
+        public DbSet<UserEntity> User { get; set; }
         public DbSet<ProjectMemberEntity> ProjectMember { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,6 +28,7 @@ namespace Repository.Agilis
             modelBuilder.Entity<MemberEntity>(new MemberMap().Configure);
             modelBuilder.Entity<SprintEntity>(new SprintMap().Configure);
             modelBuilder.Entity<TaskEntity>(new TaskMap().Configure);
+            modelBuilder.Entity<UserEntity>(new UserMap().Configure);
             modelBuilder.Entity<ProjectMemberEntity>(new ProjectMemberMap().Configure);
 
             base.OnModelCreating(modelBuilder);
