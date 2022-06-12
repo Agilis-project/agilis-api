@@ -11,6 +11,9 @@ namespace Domain.Agilis.Enums
         Manager = 2,
 
         [Display(Name = "Owner")]
-        Owner = 3
+        Owner = 3,
+
+        [Display(Name = "Adminstrator")]
+        Administrator = 4
     }
 }

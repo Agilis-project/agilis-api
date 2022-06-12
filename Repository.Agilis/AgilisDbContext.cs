@@ -1,6 +1,7 @@
 ﻿using Domain.Agilis.Entities;
 using Microsoft.EntityFrameworkCore;
 using Repository.Agilis.Mapping;
+using Repository.Agilis.Seeds;
 
 namespace Repository.Agilis
 {
@@ -32,6 +33,8 @@ namespace Repository.Agilis
             modelBuilder.Entity<ProjectMemberEntity>(new ProjectMemberMap().Configure);
 
             base.OnModelCreating(modelBuilder);
+
+            UserSeed.Users(modelBuilder);
         }
     }
 }
