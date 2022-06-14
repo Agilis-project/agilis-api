@@ -26,8 +26,4 @@
     <ProjectReference Include="..\Service.Agilis\Service.Agilis.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

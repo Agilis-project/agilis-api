@@ -2,10 +2,12 @@ using Domain.Agilis.Interfaces.Repositories;
 using Domain.Agilis.Interfaces.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Repository.Agilis;
 using Repository.Agilis.Repositories;
 using Service.Agilis.Services;
 
@@ -28,6 +30,10 @@ namespace API.Agilis
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API.Agilis", Version = "v1" });
             });
+
+            services.AddDbContext<AgilisDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
 
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 
