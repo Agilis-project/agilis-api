@@ -1,5 +1,7 @@
-﻿using Domain.Agilis.Interfaces.Repositories;
+﻿using Domain.Agilis.DTOs.Project;
+using Domain.Agilis.Interfaces.Repositories;
 using Domain.Agilis.Interfaces.Services;
+using System.Collections.Generic;
 
 namespace Service.Agilis.Services
 {
@@ -10,6 +12,31 @@ namespace Service.Agilis.Services
         public ProjectService(IProjectRepository projectRepository)
         {
             _projectRepository = projectRepository;
+        }
+
+        public void DeleteProject(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<ProjectOutputDTO> GetAllProjects()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ProjectOutputDTO GetByIdProject(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ProjectOutputDTO InsertProject(ProjectInsertDTO projectInsertDTO)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ProjectOutputDTO UpdateProject(ProjectUpdateDTO projectUpdateDTO)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

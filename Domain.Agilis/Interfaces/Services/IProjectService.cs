@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Domain.Agilis.DTOs.Project;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Agilis.Interfaces.Services
 {
     public interface IProjectService
     {
+        List<ProjectOutputDTO> GetAllProjects();
+        ProjectOutputDTO GetByIdProject(int id);
+        ProjectOutputDTO InsertProject(ProjectInsertDTO projectInsertDTO);
+        ProjectOutputDTO UpdateProject(ProjectUpdateDTO projectUpdateDTO);
+        void DeleteProject(int id);
     }
 }

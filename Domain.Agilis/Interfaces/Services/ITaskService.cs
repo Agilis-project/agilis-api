@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Domain.Agilis.DTOs.Task;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Agilis.Interfaces.Services
 {
     public interface ITaskService
     {
+        List<TaskOutputDTO> GetAllTasks();
+        TaskOutputDTO GetByIdTask(int id);
+        TaskOutputDTO InsertTask(TaskInsertDTO taskInsertDTO);
+        TaskOutputDTO UpdateTask(TaskUpdateDTO taskUpdateDTO);
+        void DeleteTask(int id);
     }
 }
