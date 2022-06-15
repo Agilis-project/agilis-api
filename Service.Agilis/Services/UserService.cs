@@ -67,7 +67,7 @@ namespace Service.Agilis.Services
             _userRepository.Insert(user);
 
             if(user.Id == 0)
-                throw new NullReferenceException("Falha ao inserir Patrocinador");
+                throw new NullReferenceException("Falha ao inserir User");
 
             return new UserOutputDTO()
             {
@@ -109,9 +109,7 @@ namespace Service.Agilis.Services
             if (id < 1)
                 throw new ArgumentException($"Id: {id} está inválido");
 
-            var userDelete = _userRepository.Delete(id);
-
-            if (!userDelete)
+            if (!_userRepository.Delete(id))
                 throw new KeyNotFoundException($"Id: {id} não encontrado");
         }
 

@@ -3,6 +3,7 @@ using Domain.Agilis.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace API.Agilis.Controllers
@@ -39,6 +40,14 @@ namespace API.Agilis.Controllers
             {
                 return Ok(_projectService.GetByIdProject(id));
             }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { message = ex.Message });
@@ -51,6 +60,14 @@ namespace API.Agilis.Controllers
             try
             {
                 return StatusCode((int)HttpStatusCode.Created, _projectService.InsertProject(projectInsertDTO));
+            }
+            catch (NullReferenceException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -65,6 +82,14 @@ namespace API.Agilis.Controllers
             {
                 return Ok(_projectService.UpdateProject(projectUpdateDTO));
             }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { message = ex.Message });
@@ -78,6 +103,14 @@ namespace API.Agilis.Controllers
             {
                 _projectService.DeleteProject(id);
                 return Ok(new { message = $"Project id: {id} deletado com successo" });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {
