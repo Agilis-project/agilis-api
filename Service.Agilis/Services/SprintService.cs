@@ -14,11 +14,6 @@ namespace Service.Agilis.Services
             _sprintRepository = sprintRepository;
         }
 
-        public void DeleteSprint(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public List<SprintOutputDTO> GetAllSprints()
         {
             throw new System.NotImplementedException();
@@ -35,6 +30,10 @@ namespace Service.Agilis.Services
         }
 
         public SprintOutputDTO UpdateSprint(SprintUpdateDTO sprintUpdateDTO)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void DeleteSprint(int id)
         {
             throw new System.NotImplementedException();
         }

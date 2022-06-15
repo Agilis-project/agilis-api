@@ -17,35 +17,35 @@ namespace Repository.Agilis.Repositories
             _dbSet = context.Set<T>();
         }
 
-        public T ObterPorId(int id, bool asNoTracking = true)
+        public T GetById(int id, bool asNoTracking = true)
         {
             IQueryable<T> query = _dbSet;
             if (asNoTracking)
                 query = query.AsNoTracking();
 
-            return query.FirstOrDefault(x => x.Id == id);
+            return query.Where(x => x.Active == true).FirstOrDefault(x => x.Id == id);
         }
 
-        public IList<T> ObterTodos()
+        public IList<T> GetAll()
         {
-            return _dbSet.ToList();
+            return _dbSet.Where(x => x.Active == true).ToList();
         }
 
-        public void Inserir(T entity)
+        public void Insert(T entity)
         {
             _dbSet.Add(entity);
             _context.SaveChanges();
         }
 
-        public void Alterar(T entity)
+        public void Update(T entity)
         {
             _dbSet.Update(entity);
             _context.SaveChanges();
         }
 
-        public bool Deletar(int id)
+        public bool Delete(int id)
         {
-            var entity = ObterPorId(id);
+            var entity = GetById(id);
 
             if (entity != null && entity.Active)
             {

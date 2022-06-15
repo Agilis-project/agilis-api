@@ -14,11 +14,6 @@ namespace Service.Agilis.Services
             _taskRepository = taskRepository;
         }
 
-        public void DeleteTask(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public List<TaskOutputDTO> GetAllTasks()
         {
             throw new System.NotImplementedException();
@@ -35,6 +30,11 @@ namespace Service.Agilis.Services
         }
 
         public TaskOutputDTO UpdateTask(TaskUpdateDTO taskUpdateDTO)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteTask(int id)
         {
             throw new System.NotImplementedException();
         }

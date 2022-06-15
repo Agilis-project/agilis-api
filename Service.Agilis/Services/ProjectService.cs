@@ -14,11 +14,6 @@ namespace Service.Agilis.Services
             _projectRepository = projectRepository;
         }
 
-        public void DeleteProject(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public List<ProjectOutputDTO> GetAllProjects()
         {
             throw new System.NotImplementedException();
@@ -35,6 +30,11 @@ namespace Service.Agilis.Services
         }
 
         public ProjectOutputDTO UpdateProject(ProjectUpdateDTO projectUpdateDTO)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteProject(int id)
         {
             throw new System.NotImplementedException();
         }

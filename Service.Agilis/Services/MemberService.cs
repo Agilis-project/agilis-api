@@ -14,11 +14,6 @@ namespace Service.Agilis.Services
             _memberRepository = memberRepository;
         }
 
-        public void DeleteMember(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public List<MemberOutputDTO> GetAllMembers()
         {
             throw new System.NotImplementedException();
@@ -35,6 +30,11 @@ namespace Service.Agilis.Services
         }
 
         public MemberOutputDTO UpdateMember(MemberUpdateDTO memberUpdateDTO)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteMember(int id)
         {
             throw new System.NotImplementedException();
         }
