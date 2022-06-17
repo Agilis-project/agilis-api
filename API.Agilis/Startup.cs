@@ -34,7 +34,7 @@ namespace API.Agilis
             // config NewtonsoftJson
 
             services.AddDbContext<AgilisDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                options.UseSqlServer(Configuration.GetConnectionString("ServerOnline"))
             );
 
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
