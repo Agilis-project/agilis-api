@@ -118,6 +118,22 @@ namespace API.Agilis.Controllers
             }
         }
 
-        // Montar o de login
+        [HttpGet]
+        [Route("/LoginUser")]
+        public IActionResult LoginUser([FromBody] UserLoginDTO userLoginDTO)
+        {
+            try
+            {
+                return Ok(_userService.LoginUser(userLoginDTO));
+            }
+            catch(UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { message = ex.Message });
+            }
+        }
     }
 }

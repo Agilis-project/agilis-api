@@ -9,6 +9,7 @@ namespace Domain.Agilis.DTOs.User
         public int Id { get; set; }
 
         [Required(ErrorMessage = "EmailUser required")]
+        [EmailAddress(ErrorMessage = "Format email invalid")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "PasswordUser required")]

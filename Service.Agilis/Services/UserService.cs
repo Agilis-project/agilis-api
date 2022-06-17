@@ -181,6 +181,32 @@ namespace Service.Agilis.Services
             _memberService.DeleteMemberWithIdUser(id);
         }
 
+        public UserOutputDTO LoginUser(UserLoginDTO userLoginDTO)
+        {
+            var login = _userRepository.LoginUser(userLoginDTO.Email, Cryptography.getMdIHash(userLoginDTO.Password));
+
+            if (login == null)
+                throw new UnauthorizedAccessException($"Acesso inválido");
+
+            return new UserOutputDTO()
+            {
+                Id = login.Id,
+                Email = login.Email,
+                Role = login.Role,
+                Active = login.Active,
+                Members = login.Members.Select(x =>
+                {
+                    return new MemberOutputDTO()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        IdUser = x.Id,
+                        Active = x.Active
+                    };
+                }).ToList()
+            };
+        }
+
         private void ExistEmail(string email, int id = 0)
         {
             if (_userRepository.ExistEmailEquals(email, id))

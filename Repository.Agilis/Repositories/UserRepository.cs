@@ -33,5 +33,14 @@ namespace Repository.Agilis.Repositories
         {
             return _dbSet.Where(x => x.Id == id).Select(x => x.Password).FirstOrDefault();
         }
+
+        public UserEntity LoginUser(string email, string password)
+        {
+            return _dbSet.Where(x => x.Email.ToUpper().Equals(email.ToUpper()) && 
+                                     x.Password.Equals(password) &&
+                                     x.Active == true)
+                         .Include(x => x.Members)
+                         .FirstOrDefault();
+        }
     }
 }

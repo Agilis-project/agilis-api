@@ -10,5 +10,6 @@ namespace Domain.Agilis.Interfaces.Services
         UserOutputDTO InsertUser(UserInsertDTO userInsertDTO);
         UserOutputDTO UpdateUser(UserUpdateDTO userUpdateDTO);
         void DeleteUser(int id);
+        UserOutputDTO LoginUser(UserLoginDTO userLoginDTO);
     }
 }

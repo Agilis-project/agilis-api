@@ -9,5 +9,6 @@ namespace Domain.Agilis.Interfaces.Repositories
         List<UserEntity> GetAllWithMember();
         UserEntity GetByIdWithMember(int id, bool asNoTracking = true);
         string GetPasswordEncryptedById(int id);
+        UserEntity LoginUser(string email, string password);
     }
 }
