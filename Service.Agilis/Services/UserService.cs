@@ -3,6 +3,7 @@ using Domain.Agilis.DTOs.User;
 using Domain.Agilis.Entities;
 using Domain.Agilis.Interfaces.Repositories;
 using Domain.Agilis.Interfaces.Services;
+using Domain.Agilis.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,6 @@ namespace Service.Agilis.Services
                 {
                     Id = x.Id,
                     Email = x.Email,
-                    Password = x.Password,
                     Role = x.Role,
                     Active = x.Active,
                     Members = x.Members.Select(x =>
@@ -59,7 +59,6 @@ namespace Service.Agilis.Services
             {
                 Id = user.Id,
                 Email = user.Email,
-                Password = user.Password,
                 Role = user.Role,
                 Active = user.Active,
                 Members = user.Members.Select(x =>
@@ -91,7 +90,7 @@ namespace Service.Agilis.Services
             var user = new UserEntity()
             {
                 Email = userInsertDTO.Email,
-                Password = userInsertDTO.Password,
+                Password = Cryptography.getMdIHash(userInsertDTO.Password),
                 Role = userInsertDTO.Role,
                 Active = true,
                 Members = members
@@ -139,12 +138,16 @@ namespace Service.Agilis.Services
             var userUpdate = new UserEntity()
             {
                 Email = userUpdateDTO.Email,
-                Password = userUpdateDTO.Password,
                 Role = userUpdateDTO.Role,
                 Active = true,
                 Members = membersUpdate
             };
 
+            if (string.IsNullOrEmpty(userUpdateDTO.Password))
+                userUpdate.Password = _userRepository.GetPasswordEncryptedById(userUpdate.Id);
+            else
+                userUpdate.Password = Cryptography.getMdIHash(userUpdateDTO.Password);
+                
             _userRepository.Update(userUpdate);
 
             return new UserOutputDTO()

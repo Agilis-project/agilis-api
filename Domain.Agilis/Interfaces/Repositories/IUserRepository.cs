@@ -8,5 +8,6 @@ namespace Domain.Agilis.Interfaces.Repositories
         bool ExistEmailEquals(string email, int id);
         List<UserEntity> GetAllWithMember();
         UserEntity GetByIdWithMember(int id, bool asNoTracking = true);
+        string GetPasswordEncryptedById(int id);
     }
 }

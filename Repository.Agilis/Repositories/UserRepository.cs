@@ -28,5 +28,10 @@ namespace Repository.Agilis.Repositories
 
             return query.Where(x => x.Active == true).Include(x => x.Members).FirstOrDefault(x => x.Id == id);
         }
+
+        public string GetPasswordEncryptedById(int id)
+        {
+            return _dbSet.Where(x => x.Id == id).Select(x => x.Password).FirstOrDefault();
+        }
     }
 }
