@@ -1,4 +1,5 @@
-﻿using Domain.Agilis.DTOs.User;
+﻿using Domain.Agilis.DTOs.Member;
+using Domain.Agilis.DTOs.User;
 using Domain.Agilis.Entities;
 using Domain.Agilis.Interfaces.Repositories;
 using Domain.Agilis.Interfaces.Services;
@@ -11,15 +12,17 @@ namespace Service.Agilis.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMemberService _memberService;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMemberService memberService)
         {
             _userRepository = userRepository;
+            _memberService = memberService;
         }
 
         public List<UserOutputDTO> GetAllUsers()
         {
-            return _userRepository.GetAll().Select(x =>
+            return _userRepository.GetAllWithMember().Select(x =>
             {
                 return new UserOutputDTO()
                 {
@@ -27,7 +30,17 @@ namespace Service.Agilis.Services
                     Email = x.Email,
                     Password = x.Password,
                     Role = x.Role,
-                    Active = x.Active
+                    Active = x.Active,
+                    Members = x.Members.Select(x =>
+                    {
+                        return new MemberOutputDTO()
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                            IdUser = x.IdUser,
+                            Active = x.Active
+                        };
+                    }).ToList()
                 };
             }).ToList();
         }
@@ -37,9 +50,9 @@ namespace Service.Agilis.Services
             if (id < 0)
                 throw new ArgumentException($"Id: {id} está inválido");
 
-            var user = _userRepository.GetById(id);
+            var user = _userRepository.GetByIdWithMember(id);
 
-            if(user == null)
+            if (user == null)
                 throw new KeyNotFoundException($"Id: {id} não encontrado");
 
             return new UserOutputDTO()
@@ -48,7 +61,17 @@ namespace Service.Agilis.Services
                 Email = user.Email,
                 Password = user.Password,
                 Role = user.Role,
-                Active = user.Active
+                Active = user.Active,
+                Members = user.Members.Select(x =>
+                {
+                    return new MemberOutputDTO()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        IdUser = x.IdUser,
+                        Active = x.Active
+                    };
+                }).ToList()
             };
         }
 
@@ -56,17 +79,27 @@ namespace Service.Agilis.Services
         {
             this.ExistEmail(userInsertDTO.Email);
 
+            var members = new List<MemberEntity>()
+            {
+                new MemberEntity()
+                {
+                    Name = userInsertDTO.Name,
+                    Active = true
+                }
+            };
+
             var user = new UserEntity()
             {
                 Email = userInsertDTO.Email,
                 Password = userInsertDTO.Password,
                 Role = userInsertDTO.Role,
-                Active = true
+                Active = true,
+                Members = members
             };
 
             _userRepository.Insert(user);
 
-            if(user.Id == 0)
+            if (user.Id == 0)
                 throw new NullReferenceException("Falha ao inserir User");
 
             return new UserOutputDTO()
@@ -75,7 +108,17 @@ namespace Service.Agilis.Services
                 Email = user.Email,
                 Password = user.Password,
                 Role = user.Role,
-                Active = user.Active
+                Active = user.Active,
+                Members = user.Members.Select(x =>
+                {
+                    return new MemberOutputDTO()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        IdUser = x.IdUser,
+                        Active = x.Active
+                    };
+                }).ToList()
             };
         }
 
@@ -84,12 +127,22 @@ namespace Service.Agilis.Services
             var user = this.GetByIdUser(userUpdateDTO.Id);
             this.ExistEmail(userUpdateDTO.Email, userUpdateDTO.Id);
 
+            var membersUpdate = new List<MemberEntity>()
+            {
+                new MemberEntity()
+                {
+                    Name = userUpdateDTO.Name,
+                    Active = true
+                }
+            };
+
             var userUpdate = new UserEntity()
             {
                 Email = userUpdateDTO.Email,
                 Password = userUpdateDTO.Password,
                 Role = userUpdateDTO.Role,
-                Active = true
+                Active = true,
+                Members = membersUpdate
             };
 
             _userRepository.Update(userUpdate);
@@ -100,7 +153,17 @@ namespace Service.Agilis.Services
                 Email = user.Email,
                 Password = user.Password,
                 Role = user.Role,
-                Active = user.Active
+                Active = user.Active,
+                Members = user.Members.Select(x =>
+                {
+                    return new MemberOutputDTO()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        IdUser = x.IdUser,
+                        Active = x.Active
+                    };
+                }).ToList()
             };
         }
 
@@ -111,6 +174,8 @@ namespace Service.Agilis.Services
 
             if (!_userRepository.Delete(id))
                 throw new KeyNotFoundException($"Id: {id} não encontrado");
+
+            _memberService.DeleteMemberWithIdUser(id);
         }
 
         private void ExistEmail(string email, int id = 0)

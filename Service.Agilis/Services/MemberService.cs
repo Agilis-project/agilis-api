@@ -1,6 +1,6 @@
-﻿using Domain.Agilis.DTOs.Member;
-using Domain.Agilis.Interfaces.Repositories;
+﻿using Domain.Agilis.Interfaces.Repositories;
 using Domain.Agilis.Interfaces.Services;
+using System;
 using System.Collections.Generic;
 
 namespace Service.Agilis.Services
@@ -14,29 +14,13 @@ namespace Service.Agilis.Services
             _memberRepository = memberRepository;
         }
 
-        public List<MemberOutputDTO> GetAllMembers()
+        public void DeleteMemberWithIdUser(int idUser)
         {
-            throw new System.NotImplementedException();
-        }
+            if (idUser < 1)
+                throw new ArgumentException($"Id: {idUser} está inválido");
 
-        public MemberOutputDTO GetByIdMember(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public MemberOutputDTO InsertMember(MemberInsertDTO memberInsertDTO)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public MemberOutputDTO UpdateMember(MemberUpdateDTO memberUpdateDTO)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void DeleteMember(int id)
-        {
-            throw new System.NotImplementedException();
+            if (!_memberRepository.DeleteWithIdUser(idUser))
+                throw new KeyNotFoundException($"Id: {idUser} não encontrado");
         }
     }
 }

@@ -13,5 +13,8 @@ namespace Domain.Agilis.DTOs.User
 
         [Required(ErrorMessage = "RoleUser required")]
         public ERoleUser Role { get; set; }
+
+        [Required(ErrorMessage = "NameMember required")]
+        public string Name { get; set; }
     }
 }

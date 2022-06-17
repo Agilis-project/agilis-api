@@ -1,4 +1,6 @@
-﻿using Domain.Agilis.Enums;
+﻿using Domain.Agilis.DTOs.Member;
+using Domain.Agilis.Enums;
+using System.Collections.Generic;
 
 namespace Domain.Agilis.DTOs.User
 {
@@ -11,6 +13,8 @@ namespace Domain.Agilis.DTOs.User
         public string Password { get; set; }
 
         public ERoleUser Role { get; set; }
+
+        public List<MemberOutputDTO> Members { get; set; }
 
         public bool Active { get; set; }
     }
