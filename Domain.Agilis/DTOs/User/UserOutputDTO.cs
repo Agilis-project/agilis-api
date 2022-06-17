@@ -10,8 +10,6 @@ namespace Domain.Agilis.DTOs.User
 
         public string Email { get; set; }
 
-        public string Password { get; set; }
-
         public ERoleUser Role { get; set; }
 
         public List<MemberOutputDTO> Members { get; set; }

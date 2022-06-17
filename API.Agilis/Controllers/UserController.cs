@@ -118,7 +118,7 @@ namespace API.Agilis.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("/LoginUser")]
         public IActionResult LoginUser([FromBody] UserLoginDTO userLoginDTO)
         {

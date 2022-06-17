@@ -105,7 +105,6 @@ namespace Service.Agilis.Services
             {
                 Id = user.Id,
                 Email = user.Email,
-                Password = user.Password,
                 Role = user.Role,
                 Active = user.Active,
                 Members = user.Members.Select(x =>
@@ -154,7 +153,6 @@ namespace Service.Agilis.Services
             {
                 Id = userUpdate.Id,
                 Email = userUpdate.Email,
-                Password = userUpdate.Password,
                 Role = userUpdate.Role,
                 Active = userUpdate.Active,
                 Members = userUpdate.Members.Select(x =>
