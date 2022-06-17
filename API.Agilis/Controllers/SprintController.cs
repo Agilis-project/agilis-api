@@ -42,6 +42,14 @@ namespace API.Agilis.Controllers
             {
                 return Ok(_sprintService.GetByIdSprint(id));
             }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { message = ex.Message });
@@ -54,6 +62,14 @@ namespace API.Agilis.Controllers
             try
             {
                 return StatusCode((int)HttpStatusCode.Created, _sprintService.InsertSprint(sprintInsertDTO));
+            }
+            catch (NullReferenceException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -68,6 +84,14 @@ namespace API.Agilis.Controllers
             {
                 return Ok(_sprintService.UpdateSprint(sprintUpdateDTO));
             }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { message = ex.Message });
@@ -81,6 +105,14 @@ namespace API.Agilis.Controllers
             {
                 _sprintService.DeleteSprint(id);
                 return Ok(new { message = $"Sprint id: {id} deletado com successo" });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {

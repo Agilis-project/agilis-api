@@ -79,7 +79,7 @@ namespace Service.Agilis.Services
 
         public ProjectOutputDTO UpdateProject(ProjectUpdateDTO projectUpdateDTO)
         {
-            var project = this.GetByIdProject(projectUpdateDTO.Id);
+            this.GetByIdProject(projectUpdateDTO.Id);
 
             var projectUpdate = new ProjectEntity()
             {
@@ -93,11 +93,11 @@ namespace Service.Agilis.Services
 
             return new ProjectOutputDTO()
             {
-                Id = project.Id,
-                Name = project.Name,
-                StartDate = project.StartDate.Date,
-                EndDate = project.EndDate.Date,
-                Active = project.Active
+                Id = projectUpdate.Id,
+                Name = projectUpdate.Name,
+                StartDate = projectUpdate.StartDate.Date,
+                EndDate = projectUpdate.EndDate.Date,
+                Active = projectUpdate.Active
             };
         }
 

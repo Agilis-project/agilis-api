@@ -31,6 +31,8 @@ namespace API.Agilis
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API.Agilis", Version = "v1" });
             });
 
+            // config NewtonsoftJson
+
             services.AddDbContext<AgilisDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );

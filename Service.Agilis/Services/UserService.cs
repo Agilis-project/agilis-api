@@ -124,7 +124,7 @@ namespace Service.Agilis.Services
 
         public UserOutputDTO UpdateUser(UserUpdateDTO userUpdateDTO)
         {
-            var user = this.GetByIdUser(userUpdateDTO.Id);
+            this.GetByIdUser(userUpdateDTO.Id);
             this.ExistEmail(userUpdateDTO.Email, userUpdateDTO.Id);
 
             var membersUpdate = new List<MemberEntity>()
@@ -149,12 +149,12 @@ namespace Service.Agilis.Services
 
             return new UserOutputDTO()
             {
-                Id = user.Id,
-                Email = user.Email,
-                Password = user.Password,
-                Role = user.Role,
-                Active = user.Active,
-                Members = user.Members.Select(x =>
+                Id = userUpdate.Id,
+                Email = userUpdate.Email,
+                Password = userUpdate.Password,
+                Role = userUpdate.Role,
+                Active = userUpdate.Active,
+                Members = userUpdate.Members.Select(x =>
                 {
                     return new MemberOutputDTO()
                     {
