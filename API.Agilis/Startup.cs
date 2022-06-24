@@ -10,6 +10,9 @@ using Microsoft.OpenApi.Models;
 using Repository.Agilis;
 using Repository.Agilis.Repositories;
 using Service.Agilis.Services;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace API.Agilis
 {
@@ -29,6 +32,10 @@ namespace API.Agilis
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API.Agilis", Version = "v1" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             // config NewtonsoftJson
@@ -61,12 +68,13 @@ namespace API.Agilis
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API.Agilis v1"));
+                app.UseDeveloperExceptionPage();           
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API.Agilis v1"));
 
             app.UseRouting();
 
