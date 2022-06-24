@@ -145,5 +145,34 @@ namespace Service.Agilis.Services
             if (!_taskRepository.Delete(id))
                 throw new KeyNotFoundException($"Id: {id} não encontrado");
         }
+
+        public List<TaskOutputDTO> GetTasksByIdSprint(int idSprint)
+        {
+            if (idSprint < 1)
+                throw new ArgumentException($"Id: {idSprint} está inválido");
+
+            var tasksSprint = _taskRepository.GetTasksByIdSprint(idSprint);
+
+            if (tasksSprint.Count() <= 0)
+                throw new KeyNotFoundException($"Sprint sem tasks");
+
+            return tasksSprint.Select(x =>
+            {
+                return new TaskOutputDTO()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    Status = x.Status,
+                    ReleaseDate = x.ReleaseDate,
+                    TaskNumber = x.TaskNumber,
+                    IdMember = x.IdMember,
+                    IdSprint = x.IdSprint,
+                    Active = x.Active
+                };
+            }).ToList();
+        }
     }
 }

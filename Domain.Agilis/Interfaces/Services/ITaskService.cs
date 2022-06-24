@@ -7,6 +7,7 @@ namespace Domain.Agilis.Interfaces.Services
     {
         List<TaskOutputDTO> GetAllTasks();
         TaskOutputDTO GetByIdTask(int id);
+        List<TaskOutputDTO> GetTasksByIdSprint(int idSprint);
         TaskOutputDTO InsertTask(TaskInsertDTO taskInsertDTO);
         TaskOutputDTO UpdateTask(TaskUpdateDTO taskUpdateDTO);
         void DeleteTask(int id);

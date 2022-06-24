@@ -7,6 +7,8 @@ namespace Domain.Agilis.Interfaces.Services
     {
         List<SprintOutputDTO> GetAllSprints();
         SprintOutputDTO GetByIdSprint(int id);
+        SprintOutputDTO GetSprintBacklog(int idProject);
+        List<SprintOutputDTO> GetAllSprintsByIdProject(int idProject);
         SprintOutputDTO InsertSprint(SprintInsertDTO sprintInsertDTO);
         SprintOutputDTO UpdateSprint(SprintUpdateDTO sprintUpdateDTO);
         void DeleteSprint(int id);

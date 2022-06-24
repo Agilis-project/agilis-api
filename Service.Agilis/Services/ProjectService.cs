@@ -1,4 +1,5 @@
 ﻿using Domain.Agilis.DTOs.Project;
+using Domain.Agilis.DTOs.Sprint;
 using Domain.Agilis.Entities;
 using Domain.Agilis.Interfaces.Repositories;
 using Domain.Agilis.Interfaces.Services;
@@ -11,10 +12,12 @@ namespace Service.Agilis.Services
     public class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly ISprintService _sprintService;
 
-        public ProjectService(IProjectRepository projectRepository)
+        public ProjectService(IProjectRepository projectRepository, ISprintService sprintService)
         {
             _projectRepository = projectRepository;
+            _sprintService = sprintService;
         }
 
         public List<ProjectOutputDTO> GetAllProjects()
@@ -66,6 +69,17 @@ namespace Service.Agilis.Services
 
             if (project.Id == 0)
                 throw new NullReferenceException("Falha ao inserir Project");
+
+            var sprintBakclog = new SprintInsertDTO()
+            {
+                Name = "Backlog",
+                StartDate = DateTime.Now,
+                SprintNumber = "0",
+                EndDate = project.EndDate,
+                IdProject = project.Id
+            };
+
+            _sprintService.InsertSprint(sprintBakclog);
 
             return new ProjectOutputDTO()
             {

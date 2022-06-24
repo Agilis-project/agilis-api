@@ -54,6 +54,32 @@ namespace API.Agilis.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtém todas task da sprint, passar id sprint, sprints normais e de backlog
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/api/Task/Sprint/{id:int}")]
+        public IActionResult GetTasksByIdSprint(int id)
+        {
+            try
+            {
+                return Ok(_taskService.GetTasksByIdSprint(id));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { message = ex.Message });
+            }
+        }
+
         [HttpPost]
         public IActionResult InsertTask([FromBody] TaskInsertDTO taskInsertDTO)
         {

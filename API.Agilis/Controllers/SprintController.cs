@@ -56,6 +56,58 @@ namespace API.Agilis.Controllers
             }
         }
 
+        /// <summary>
+        /// Pode passar o start e end date nesse formato yyyy-mm-dd, ex: 2022-06-24
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/api/Sprint/Backlog/{id:int}")]
+        public IActionResult GetSprintBacklog(int id)
+        {
+            try
+            {
+                return Ok(_sprintService.GetSprintBacklog(id));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtém todas as sprints do id de projeto que for passado como parâmetro, menos a Backlog
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/api/Sprint/Project/{id:int}")]
+        public IActionResult GetAllSprintsByIdProject(int id)
+        {
+            try
+            {
+                return Ok(_sprintService.GetAllSprintsByIdProject(id));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { message = ex.Message });
+            }
+        }
+
         [HttpPost]
         public IActionResult InsertSprint([FromBody] SprintInsertDTO sprintInsertDTO)
         {

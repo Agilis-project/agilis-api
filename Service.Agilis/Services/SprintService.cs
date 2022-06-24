@@ -120,5 +120,52 @@ namespace Service.Agilis.Services
             if (!_sprintRepository.Delete(id))
                 throw new KeyNotFoundException($"Id: {id} não encontrado");
         }
+
+        public SprintOutputDTO GetSprintBacklog(int idProject)
+        {
+            if (idProject < 0)
+                throw new ArgumentException($"Id: {idProject} está inválido");
+
+            var sprintBaklog = _sprintRepository.GetSprintBacklog(idProject);
+
+            if(sprintBaklog == null)
+                throw new KeyNotFoundException($"Backlog não encontrado");
+
+            return new SprintOutputDTO()
+            {
+                Id = sprintBaklog.Id,
+                Name = sprintBaklog.Name,
+                SprintNumber = sprintBaklog.SprintNumber,
+                StartDate = sprintBaklog.StartDate,
+                EndDate = sprintBaklog.EndDate,
+                IdProject = sprintBaklog.IdProject,
+                Active = sprintBaklog.Active
+            };
+        }
+
+        public List<SprintOutputDTO> GetAllSprintsByIdProject(int idProject)
+        {
+            if (idProject < 0)
+                throw new ArgumentException($"Id: {idProject} está inválido");
+
+            var sprintsProject = _sprintRepository.GetAllSprintsByIdProject(idProject);
+
+            if (sprintsProject.Count() <= 0)
+                throw new KeyNotFoundException($"Projeto sem sprints");
+
+            return sprintsProject.Select(x =>
+            {
+                return new SprintOutputDTO()
+                {
+                    Id = x.Id,
+                    SprintNumber = x.SprintNumber,
+                    Name = x.Name,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    Active = x.Active,
+                    IdProject = x.IdProject
+                };
+            }).ToList();
+        }
     }
 }
